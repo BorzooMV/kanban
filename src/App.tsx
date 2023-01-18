@@ -1,10 +1,12 @@
+import { ThemeProvider } from "@mui/material";
 import "./App.scss";
+import theme from "./theme";
 
 function App() {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <h1>Kanban</h1>
+    </ThemeProvider>
   );
 }
 
