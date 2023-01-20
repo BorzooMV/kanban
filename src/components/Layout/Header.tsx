@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography, Toolbar } from "@mui/material";
 import { SIDEBAR_WIDTH } from "../../utils/const";
 
 import "./style.scss";
@@ -6,18 +6,26 @@ import "./style.scss";
 export default function Header() {
   return (
     <Box
-      className="header"
+      className="layout__header"
       sx={{
         width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
         ml: `${SIDEBAR_WIDTH}px`,
       }}
     >
-      <h1>Platform Lunch</h1>
-      <div className="header__actions">
-        <Button color="primary" variant="contained">
-          Add New Task
-        </Button>
-      </div>
+      <Toolbar
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography>Platform Lunch</Typography>
+        <div className="header__actions">
+          <Button color="primary" variant="contained">
+            Add New Task
+          </Button>
+        </div>
+      </Toolbar>
     </Box>
   );
 }

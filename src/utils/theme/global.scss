@@ -3,6 +3,10 @@ $darkBackground: #212121;
 $darkBackgroundLighten: #373737;
 $primary: #6464be;
 $white: #fff;
+$lightGrey: #515151;
+
+// Borders
+$thinBorderLight: 1px solid $lightGrey;
 
 * {
   padding: 0;

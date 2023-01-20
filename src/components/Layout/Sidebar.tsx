@@ -1,12 +1,20 @@
 import React from "react";
+
+import { SIDEBAR_WIDTH } from "../../utils/const";
+
+import BoardsList from "../BoardsList";
+
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 
 import "./style.scss";
-import { SIDEBAR_WIDTH } from "../../utils/const";
 
 export default function Sidebar() {
   return (
     <Drawer
+      className="layout__sidebar"
       variant="permanent"
       anchor="left"
       sx={{
@@ -18,7 +26,11 @@ export default function Sidebar() {
         },
       }}
     >
-      Bortzoo
+      <Toolbar>
+        <Typography>Kanban</Typography>
+      </Toolbar>
+      <Divider sx={{ opacity: 0 }} />
+      <BoardsList />
     </Drawer>
   );
 }
