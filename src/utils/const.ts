@@ -1,0 +1,6 @@
+export const SIDEBAR_WIDTH = 240;
+export const COLORS = {
+  PRIMARY: "#6464be",
+  DARK_BACKGROUND: "#212121",
+  DARK_BACKGROUND_LIGHTEN: "#373737",
+};

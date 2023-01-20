@@ -1,0 +1,15 @@
+// Colors
+$darkBackground: #212121;
+$darkBackgroundLighten: #373737;
+$primary: #6464be;
+$white: #fff;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $darkBackground;
+}
