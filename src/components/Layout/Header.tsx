@@ -19,7 +19,7 @@ export default function Header() {
           justifyContent: "space-between",
         }}
       >
-        <Typography>Platform Lunch</Typography>
+        <Typography color="text.primary">Platform Lunch</Typography>
         <div className="header__actions">
           <Button color="primary" variant="contained">
             Add New Task

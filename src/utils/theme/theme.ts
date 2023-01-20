@@ -3,6 +3,7 @@ import { COLORS } from "../const";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
       main: COLORS.PRIMARY,
     },
@@ -10,6 +11,9 @@ const theme = createTheme({
       main: COLORS.DARK_BACKGROUND,
       light: COLORS.DARK_BACKGROUND_LIGHTEN,
     },
+  },
+  typography: {
+    fontSize: 16,
   },
 });
 

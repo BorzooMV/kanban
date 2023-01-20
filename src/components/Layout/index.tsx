@@ -10,9 +10,7 @@ export default function Layout() {
     <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       <Header />
       <Sidebar />
-      <MainWrapper>
-        <h1>Main</h1>
-      </MainWrapper>
+      <MainWrapper></MainWrapper>
     </Box>
   );
 }
