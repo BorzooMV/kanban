@@ -1,6 +1,15 @@
 import { createTheme } from "@mui/material";
 import { COLORS } from "../const";
 
+declare module "@mui/material/styles" {
+  interface PaletteOptions {
+    darkBackground?: {
+      main?: string;
+      light?: string;
+    };
+  }
+}
+
 const theme = createTheme({
   palette: {
     mode: "dark",
