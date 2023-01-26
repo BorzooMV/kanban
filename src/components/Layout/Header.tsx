@@ -4,6 +4,8 @@ import { SIDEBAR_WIDTH } from "../../utils/const";
 import "./style.scss";
 
 export default function Header() {
+  function handleTestButton() {}
+
   return (
     <Box
       className="layout__header"
@@ -21,7 +23,11 @@ export default function Header() {
       >
         <Typography color="text.primary">Platform Lunch</Typography>
         <div className="header__actions">
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleTestButton}
+          >
             Add New Task
           </Button>
         </div>
