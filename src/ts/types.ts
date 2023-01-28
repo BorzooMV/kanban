@@ -15,6 +15,10 @@ export type BoardType = {
 };
 
 // Redux
+export type InitialStates = {
+  boards: BoardType[];
+};
+
 export type ReduxActionType = {
   type: string;
   payload?: any;

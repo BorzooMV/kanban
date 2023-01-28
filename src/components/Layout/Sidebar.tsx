@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import { SIDEBAR_WIDTH } from "../../utils/const";
 
@@ -9,9 +10,13 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 
+import { InitialStates } from "../../ts/types";
 import "./style.scss";
 
+// FIXME: fix redux store problem to avoid importing boards from boards
 export default function Sidebar() {
+  const boards = useSelector((state: InitialStates) => state.boards.boards);
+
   return (
     <Drawer
       className="layout__sidebar"
@@ -30,7 +35,7 @@ export default function Sidebar() {
         <Typography>Kanban</Typography>
       </Toolbar>
       <Divider sx={{ opacity: 0 }} />
-      <BoardsList />
+      <BoardsList boards={boards} />
     </Drawer>
   );
 }

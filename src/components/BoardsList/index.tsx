@@ -8,39 +8,27 @@ import {
   Typography,
 } from "@mui/material";
 import { DashboardOutlined } from "@mui/icons-material";
+import { AddToListItem } from "../AddToListItem";
 
-type ListItemType = {
-  text: string;
+import { BoardType } from "../../ts/types";
+
+import "./style.scss";
+
+type Props = {
+  boards: BoardType[];
 };
 
-const sampleList = [
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-];
-
-export default function BoardsList() {
-  const [items, setItems] = useState<ListItemType[] | []>(sampleList);
-
+export default function BoardsList({ boards }: Props) {
   function ListItems() {
     return (
       <>
-        {items.map((item, index) => {
+        {boards.map((board, index) => {
           return (
             <ListItem key={index}>
               <ListItemIcon>
-                <DashboardOutlined />
+                <DashboardOutlined fontSize="small" />
               </ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText primary={board.name} />
             </ListItem>
           );
         })}
@@ -50,8 +38,9 @@ export default function BoardsList() {
 
   return (
     <List>
-      <Typography>All Boards (3)</Typography>
+      <Typography>All Boards ({boards.length})</Typography>
       <ListItems />
+      <AddToListItem />
     </List>
   );
 }
