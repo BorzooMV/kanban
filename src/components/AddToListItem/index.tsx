@@ -1,16 +1,36 @@
+import { useState } from "react";
+
+import CreateBoardForm from "../Forms/CreateBoard";
+
 import { DashboardOutlined } from "@mui/icons-material";
-import { ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Modal,
+  useTheme,
+} from "@mui/material";
 
 export function AddToListItem() {
+  const [isModalOpen, setModalOpen] = useState(false);
   const theme = useTheme();
 
-  function addBoard() {
-    console.log("open form");
+  function closeModal() {
+    setModalOpen(false);
+  }
+
+  function openModal() {
+    setModalOpen(true);
   }
 
   return (
     <div>
-      <ListItem onClick={addBoard}>
+      <Modal open={isModalOpen} onClose={closeModal}>
+        <>
+          <CreateBoardForm closeModal={closeModal} />
+        </>
+      </Modal>
+      <ListItem onClick={openModal}>
         <ListItemIcon>
           <DashboardOutlined sx={{ color: theme.palette.primary.main }} />
         </ListItemIcon>
