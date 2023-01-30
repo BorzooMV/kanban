@@ -1,13 +1,20 @@
-import { BOARD_CREATE, BOARD_UPDATE, BOARD_DELETE } from "./actionTypes";
+import {
+  BOARD_CREATE,
+  BOARD_UPDATE,
+  BOARD_DELETE,
+  CURRENT_BORAD_CHANGE,
+} from "./actionTypes";
 import {
   BoardType,
   Id,
   ReduxActionType,
+  ReduxStateType,
   UpdateBoardDataType,
 } from "../../ts/types";
 
 const INITIAL_STATE = {
   boards: [],
+  currentBoard: null,
 };
 
 export default function reducer(
@@ -16,9 +23,15 @@ export default function reducer(
 ) {
   switch (action.type) {
     case BOARD_CREATE:
+      const id = generateId();
       return {
         ...state,
-        boards: createBoardAndUpdateTheList(state, action.payload.newBoardData),
+        boards: createBoardAndUpdateTheList(
+          state,
+          action.payload.newBoardData,
+          id
+        ),
+        currentBoard: id,
       };
 
     case BOARD_UPDATE:
@@ -36,9 +49,19 @@ export default function reducer(
         ...state,
         boards: deleteBoardAndUpdateTheList(state, action.payload.id),
       };
+    case CURRENT_BORAD_CHANGE:
+      return {
+        ...state,
+        currentBoard: action.payload.id,
+      };
     default:
       return state;
   }
+}
+
+// TODO: generate uuid for the boards
+function generateId() {
+  return String(Math.random() * 10);
 }
 
 function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
@@ -47,11 +70,13 @@ function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
 
 // Fixme: resolve overload problem
 function updateBoardAndUpdateTheList(
-  state: any,
+  state: ReduxStateType,
   id: Id,
   updateData: UpdateBoardDataType
 ): BoardType[] {
-  const boardsToUpdate = state.boards.filter((board: any) => board.id !== id);
+  const boardsToUpdate = state.boards.filter(
+    (board: BoardType) => board.id !== id
+  );
   const boardToUpdate = getBoardById(state.boards, id);
   const updatedKeys = Object.keys(updateData);
 
@@ -66,12 +91,10 @@ function updateBoardAndUpdateTheList(
 }
 
 function createBoardAndUpdateTheList(
-  state: any,
-  newBoardData: UpdateBoardDataType
+  state: ReduxStateType,
+  newBoardData: UpdateBoardDataType,
+  id: Id
 ): BoardType[] {
-  // TODO: generate uuid for the boards
-  const id = String(Math.random() * 10);
-
   const newBoard = {
     id,
     ...newBoardData,
@@ -82,7 +105,7 @@ function createBoardAndUpdateTheList(
   return newBoardList;
 }
 
-function deleteBoardAndUpdateTheList(state: any, id: Id) {
+function deleteBoardAndUpdateTheList(state: ReduxStateType, id: Id) {
   const boards = [...state.boards];
   return boards.filter((board) => board.id !== id);
 }

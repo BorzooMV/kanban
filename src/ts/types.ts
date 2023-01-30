@@ -15,8 +15,13 @@ export type BoardType = {
 };
 
 // Redux
-export type InitialStates = {
+export type ReduxStateType = {
   boards: BoardType[];
+  currentBoard: null | Id;
+};
+
+export type ReduxStoreType = {
+  root: ReduxStateType;
 };
 
 export type ReduxActionType = {
@@ -28,3 +33,6 @@ export type ReduxActionType = {
 export type UpdateBoardDataType = {
   name?: string;
 };
+
+// Hooks
+export type UseCurrentBoardType = [Id | null, (id: Id) => void];

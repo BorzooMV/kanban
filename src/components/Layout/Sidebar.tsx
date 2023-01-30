@@ -9,13 +9,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import { ReduxStoreType } from "../../ts/types";
 
-import { InitialStates } from "../../ts/types";
 import "./style.scss";
 
-// FIXME: fix redux store problem to avoid importing boards from boards
 export default function Sidebar() {
-  const boards = useSelector((state: InitialStates) => state.boards.boards);
+  const boards = useSelector((store: ReduxStoreType) => store.root.boards);
 
   return (
     <Drawer

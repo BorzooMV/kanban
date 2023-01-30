@@ -3,7 +3,7 @@ import reducer from "./reducer";
 
 const store = configureStore({
   reducer: {
-    boards: reducer,
+    root: reducer,
   },
 });
 
