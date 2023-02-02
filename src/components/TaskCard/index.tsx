@@ -5,10 +5,7 @@ export default function TaskCard() {
   return (
     <Card square sx={{ p: 2 }}>
       <Typography sx={{ mb: 1 }}>Task title</Typography>
-      <Typography
-        fontSize="small"
-        sx={{ color: theme.palette.fadedPrimary.main }}
-      >
+      <Typography fontSize="small" sx={{ color: theme.palette.primary.faded }}>
         0 of 2 subtask
       </Typography>
     </Card>

@@ -1,15 +1,13 @@
-import { createTheme } from "@mui/material";
+import { createTheme, PaletteColorOptions } from "@mui/material";
 import { COLORS } from "../const";
 
 declare module "@mui/material/styles" {
+  interface SimplePaletteColorOptions {
+    faded?: string;
+  }
+
   interface PaletteOptions {
-    fadedPrimary?: {
-      main?: string;
-    };
-    darkBackground?: {
-      main?: string;
-      light?: string;
-    };
+    darkBackground?: PaletteColorOptions;
   }
 }
 
@@ -18,9 +16,7 @@ const theme = createTheme({
     mode: "dark",
     primary: {
       main: COLORS.PRIMARY,
-    },
-    fadedPrimary: {
-      main: COLORS.PRIMARY_FADED,
+      faded: COLORS.PRIMARY_FADED,
     },
     darkBackground: {
       main: COLORS.DARK_BACKGROUND,
