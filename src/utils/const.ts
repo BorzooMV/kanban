@@ -1,6 +1,8 @@
-export const SIDEBAR_WIDTH = 240;
+export const SIDEBAR_WIDTH = "240px";
+export const TASKS_COLUMNS_WIDTH = "300px";
 export const COLORS = {
   PRIMARY: "#6464be",
+  PRIMARY_FADED: "#8989b0",
   DARK_BACKGROUND: "#212121",
   DARK_BACKGROUND_LIGHTEN: "#373737",
 };

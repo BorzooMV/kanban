@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import { SIDEBAR_WIDTH } from "../../utils/const";
-import { ReduxStoreType } from "../../ts/types";
 import { Box, Button, Typography, Toolbar } from "@mui/material";
 
 import "./style.scss";
@@ -15,8 +13,8 @@ export default function Header() {
     <Box
       className="layout__header"
       sx={{
-        width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
-        ml: `${SIDEBAR_WIDTH}px`,
+        width: `calc(100% - ${SIDEBAR_WIDTH})`,
+        ml: `${SIDEBAR_WIDTH}`,
       }}
     >
       <Toolbar

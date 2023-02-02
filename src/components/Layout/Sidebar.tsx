@@ -22,10 +22,10 @@ export default function Sidebar() {
       variant="permanent"
       anchor="left"
       sx={{
-        width: `${SIDEBAR_WIDTH}px`,
+        width: `${SIDEBAR_WIDTH}`,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: `${SIDEBAR_WIDTH}px`,
+          width: `${SIDEBAR_WIDTH}`,
           bgcolor: "darkBackground.light",
         },
       }}

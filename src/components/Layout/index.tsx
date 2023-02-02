@@ -1,16 +1,19 @@
-import { Box } from "@mui/material";
-import React from "react";
-
 import Header from "./Header";
 import MainWrapper from "./MainWrapper";
 import Sidebar from "./Sidebar";
+import TaskCard from "../TaskCard";
+
+import { Box } from "@mui/material";
+import TasksColumn from "../TasksColumn";
 
 export default function Layout() {
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       <Header />
       <Sidebar />
-      <MainWrapper></MainWrapper>
+      <MainWrapper>
+        <TasksColumn />
+      </MainWrapper>
     </Box>
   );
 }
