@@ -35,4 +35,4 @@ export type UpdateBoardDataType = {
 };
 
 // Hooks
-export type UseCurrentBoardType = [Id | null, (id: Id) => void];
+export type UseCurrentBoardType = [BoardType | undefined, (id: Id) => void];

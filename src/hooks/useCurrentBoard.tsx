@@ -4,13 +4,16 @@ import { Id, ReduxStoreType, UseCurrentBoardType } from "../ts/types";
 
 export default function useCurrentBoard(): UseCurrentBoardType {
   const dispatch = useDispatch();
+  const boards = useSelector((store: ReduxStoreType) => store.root.boards);
   const currentBoardId = useSelector(
     (store: ReduxStoreType) => store.root.currentBoard
   );
+
+  const currentBoard = boards.find((board) => board.id === currentBoardId);
 
   function changeBoard(id: Id) {
     dispatch(changeCurrentBoard(id));
   }
 
-  return [currentBoardId, changeBoard];
+  return [currentBoard, changeBoard];
 }

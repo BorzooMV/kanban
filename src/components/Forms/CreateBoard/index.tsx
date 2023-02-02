@@ -15,6 +15,7 @@ import {
 
 import "../style.scss";
 
+// TODO: autoselect name input when modal gets open
 export default function CreateBoardForm({
   closeModal,
 }: {
