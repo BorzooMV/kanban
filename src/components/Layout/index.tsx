@@ -2,54 +2,14 @@ import Header from "./Header";
 import MainWrapper from "./MainWrapper";
 import Sidebar from "./Sidebar";
 
-import { Box } from "@mui/material";
-import TasksColumn from "../TasksColumn";
+import mockedData from "../../data/mockedColumns.json";
+
 import Columns from "../Columns";
+import { Box } from "@mui/material";
 
-const sampleColumns = [
-  {
-    id: "01",
-    name: "First Column",
-    tasks: [
-      {
-        id: "01",
-        defenition: "Buy milk",
-        subtasks: [
-          {
-            id: "01",
-            defenition: "Find milk",
-          },
-          {
-            id: "02",
-            defenition: "Buy good milk",
-          },
-        ],
-      },
+const columnsData = mockedData;
 
-      {
-        id: "02",
-        defenition: "Buy soda",
-        subtasks: [],
-      },
-    ],
-  },
-  {
-    id: "02",
-    name: "Second Column",
-    tasks: [
-      {
-        id: "01",
-        defenition: "Sell milk",
-        subtasks: [
-          {
-            id: "01",
-            defenition: "Find customer",
-          },
-        ],
-      },
-    ],
-  },
-];
+console.log(columnsData);
 
 export default function Layout() {
   return (
@@ -57,7 +17,7 @@ export default function Layout() {
       <Header />
       <Sidebar />
       <MainWrapper>
-        <Columns columns={sampleColumns} />
+        <Columns columns={columnsData} />
       </MainWrapper>
     </Box>
   );
