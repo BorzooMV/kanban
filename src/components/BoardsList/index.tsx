@@ -10,15 +10,11 @@ import {
 import { DashboardOutlined } from "@mui/icons-material";
 import { AddToListItem } from "../AddToListItem";
 
-import { BoardType } from "../../ts/types";
+import { BoardsListProps } from "../../ts/types";
 
 import "./style.scss";
 
-type Props = {
-  boards: BoardType[];
-};
-
-export default function BoardsList({ boards }: Props) {
+export default function BoardsList({ boards }: BoardsListProps) {
   function ListItems() {
     return (
       <>

@@ -1,9 +1,12 @@
-import { List } from "@mui/icons-material";
-import { Box, Divider, Stack, Typography } from "@mui/material";
 import { TASKS_COLUMNS_WIDTH } from "../../utils/const";
+
 import TaskCard from "../TaskCard";
 
-export default function TasksColumn({ columnData }) {
+import { List } from "@mui/icons-material";
+import { TasksColumnProps, TaskType } from "../../ts/types";
+import { Box, Divider, Stack, Typography } from "@mui/material";
+
+export default function TasksColumn({ columnData }: TasksColumnProps) {
   const { name, tasks } = columnData;
   return (
     <Box
@@ -21,14 +24,8 @@ export default function TasksColumn({ columnData }) {
       </Stack>
       <Divider sx={{ my: 2, opacity: 0 }} />
       <Stack direction="column" spacing={2}>
-        {tasks.map((task) => {
-          return (
-            <TaskCard
-              key={task.id}
-              title={task.defenition}
-              subtasks={task.subtasks}
-            />
-          );
+        {tasks.map((task: TaskType) => {
+          return <TaskCard key={task.id} task={task} />;
         })}
       </Stack>
     </Box>

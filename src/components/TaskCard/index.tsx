@@ -1,12 +1,14 @@
 import { Card, Typography, useTheme } from "@mui/material";
+import { TaskCardProps } from "../../ts/types";
 
-export default function TaskCard({ title, subtasks }) {
+export default function TaskCard({ task }: TaskCardProps) {
+  const { defenition, subtasks } = task;
   const theme = useTheme();
   return (
     <Card square sx={{ p: 2 }}>
-      <Typography sx={{ mb: 1 }}>{title}</Typography>
+      <Typography sx={{ mb: 1 }}>{defenition}</Typography>
       <Typography fontSize="small" sx={{ color: theme.palette.primary.faded }}>
-        {subtasks.length > 0 && `0 of ${subtasks.length} subtask`}
+        {subtasks && subtasks.length > 0 && `0 of ${subtasks.length} subtask`}
       </Typography>
     </Card>
   );
