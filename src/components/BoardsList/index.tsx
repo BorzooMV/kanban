@@ -1,4 +1,4 @@
-import { useState } from "react";
+import uuid from "react-uuid";
 
 import {
   List,
@@ -8,39 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 import { DashboardOutlined } from "@mui/icons-material";
+import { AddToListItem } from "../AddToListItem";
 
-type ListItemType = {
-  text: string;
-};
+import { BoardsListProps } from "../../ts/types";
 
-const sampleList = [
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-  {
-    text: "Item",
-  },
-];
+import "./style.scss";
 
-export default function BoardsList() {
-  const [items, setItems] = useState<ListItemType[] | []>(sampleList);
-
+export default function BoardsList({ boards }: BoardsListProps) {
   function ListItems() {
     return (
       <>
-        {items.map((item, index) => {
+        {boards.map((board, index) => {
           return (
-            <ListItem key={index}>
+            <ListItem key={uuid()}>
               <ListItemIcon>
-                <DashboardOutlined />
+                <DashboardOutlined fontSize="small" />
               </ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText primary={board.name} />
             </ListItem>
           );
         })}
@@ -50,8 +34,9 @@ export default function BoardsList() {
 
   return (
     <List>
-      <Typography>All Boards (3)</Typography>
+      <Typography>All Boards ({boards.length})</Typography>
       <ListItems />
+      <AddToListItem />
     </List>
   );
 }

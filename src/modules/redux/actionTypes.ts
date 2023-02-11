@@ -1,0 +1,7 @@
+export const BOARD_CREATE = "BOARD_CREATE";
+export const BOARD_UPDATE = "BOARD_UPDATE";
+export const BOARD_DELETE = "BOARD_DELETE";
+
+export const CURRENT_BORAD_CHANGE = "CURRENT_BORAD_CHANGE ";
+
+export const COLUMN_CREATE = "COLUMN_CREATE";

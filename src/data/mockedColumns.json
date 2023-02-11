@@ -1,0 +1,44 @@
+[
+  {
+    "id": "01",
+    "name": "First Column",
+    "tasks": [
+      {
+        "id": "01",
+        "defenition": "Buy milk",
+        "subtasks": [
+          {
+            "id": "01",
+            "defenition": "Find milk"
+          },
+          {
+            "id": "02",
+            "defenition": "Buy good milk"
+          }
+        ]
+      },
+
+      {
+        "id": "02",
+        "defenition": "Buy soda",
+        "subtasks": []
+      }
+    ]
+  },
+  {
+    "id": "02",
+    "name": "Second Column",
+    "tasks": [
+      {
+        "id": "01",
+        "defenition": "Sell milk",
+        "subtasks": [
+          {
+            "id": "01",
+            "defenition": "Find customer"
+          }
+        ]
+      }
+    ]
+  }
+]

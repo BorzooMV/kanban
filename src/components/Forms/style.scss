@@ -1,0 +1,23 @@
+@import "../../utils/theme/global.scss";
+
+.main-modal-form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 35%;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.MuiTextField-root {
+  .MuiInputBase-root {
+    color: $darkBackground;
+  }
+
+  .MuiOutlinedInput-input {
+    background-color: lighten($primary, 35);
+    border-radius: inherit;
+  }
+}
