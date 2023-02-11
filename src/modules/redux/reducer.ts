@@ -12,6 +12,7 @@ import {
   UpdateBoardDataType,
   NewColumnDataType,
 } from "../../ts/types";
+import uuid from "react-uuid";
 
 const INITIAL_STATE = {
   boards: [],
@@ -75,7 +76,7 @@ export default function reducer(
 
 // TODO: generate uuid for the boards
 function generateId() {
-  return String(Math.floor(Math.random() * 10));
+  return uuid();
 }
 
 function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {

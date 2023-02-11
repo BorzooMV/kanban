@@ -1,4 +1,4 @@
-import { useState } from "react";
+import uuid from "react-uuid";
 
 import {
   List,
@@ -20,7 +20,7 @@ export default function BoardsList({ boards }: BoardsListProps) {
       <>
         {boards.map((board, index) => {
           return (
-            <ListItem key={index}>
+            <ListItem key={uuid()}>
               <ListItemIcon>
                 <DashboardOutlined fontSize="small" />
               </ListItemIcon>
