@@ -26,7 +26,11 @@ export type ReduxActionType = {
 
 // Redux - Reducer utils
 export type UpdateBoardDataType = {
-  name?: string;
+  name: string;
+};
+
+export type NewColumnDataType = {
+  name: string;
 };
 
 // *****
@@ -40,12 +44,8 @@ export type UseCurrentBoardType = [BoardType | undefined, (id: Id) => void];
 
 export type BoardType = {
   id: Id;
-  name?: string;
-};
-
-export type ColumnType = {
-  id: Id;
-  name?: string;
+  name: string;
+  columns: ColumnType[];
 };
 
 export type SubtaskType = {
@@ -59,9 +59,10 @@ export type TaskType = {
   subtasks?: SubtaskType[];
 };
 
-export type ColumnDataType = {
+export type ColumnType = {
+  id: Id;
   name: string;
-  tasks: TaskType[];
+  tasks?: TaskType[];
 };
 
 // Props
@@ -70,7 +71,7 @@ export type BoardsListProps = {
 };
 
 export type TasksColumnProps = {
-  columnData: ColumnDataType;
+  columnData: ColumnType;
 };
 
 export type TaskCardProps = {
@@ -78,5 +79,5 @@ export type TaskCardProps = {
 };
 
 export type ColumnsProps = {
-  columns: ColumnDataType[];
+  columns: ColumnType[];
 };

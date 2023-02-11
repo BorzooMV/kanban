@@ -1,23 +1,26 @@
+import useCurrentBoard from "../../hooks/useCurrentBoard";
+
 import Header from "./Header";
 import MainWrapper from "./MainWrapper";
 import Sidebar from "./Sidebar";
-
-import mockedData from "../../data/mockedColumns.json";
-
 import Columns from "../Columns";
-import { Box } from "@mui/material";
+import AddColumn from "../AddColumn";
 
-const columnsData = mockedData;
-
-console.log(columnsData);
+import { Box, Stack } from "@mui/material";
 
 export default function Layout() {
+  const [currentBoard] = useCurrentBoard();
+  const columnsData = currentBoard ? currentBoard.columns : [];
+
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       <Header />
       <Sidebar />
       <MainWrapper>
-        <Columns columns={columnsData} />
+        <Stack direction="row" spacing={2}>
+          <Columns columns={columnsData} />
+          <AddColumn />
+        </Stack>
       </MainWrapper>
     </Box>
   );

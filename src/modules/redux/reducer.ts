@@ -1,8 +1,8 @@
 import {
   BOARD_CREATE,
-  BOARD_UPDATE,
   BOARD_DELETE,
   CURRENT_BORAD_CHANGE,
+  COLUMN_CREATE,
 } from "./actionTypes";
 import {
   BoardType,
@@ -10,6 +10,7 @@ import {
   ReduxActionType,
   ReduxStateType,
   UpdateBoardDataType,
+  NewColumnDataType,
 } from "../../ts/types";
 
 const INITIAL_STATE = {
@@ -23,26 +24,26 @@ export default function reducer(
 ) {
   switch (action.type) {
     case BOARD_CREATE:
-      const id = generateId();
+      const newBoardId = generateId();
       return {
         ...state,
         boards: createBoardAndUpdateTheList(
           state,
           action.payload.newBoardData,
-          id
+          newBoardId
         ),
-        currentBoard: id,
+        currentBoard: newBoardId,
       };
 
-    case BOARD_UPDATE:
-      return {
-        ...state,
-        boards: updateBoardAndUpdateTheList(
-          state,
-          action.payload.id,
-          action.payload.updateData
-        ),
-      };
+    // case BOARD_UPDATE:
+    //   return {
+    //     ...state,
+    //     boards: updateBoardAndUpdateTheList(
+    //       state,
+    //       action.payload.id,
+    //       action.payload.updateData
+    //     ),
+    //   };
 
     case BOARD_DELETE:
       return {
@@ -54,6 +55,19 @@ export default function reducer(
         ...state,
         currentBoard: action.payload.id,
       };
+
+    case COLUMN_CREATE:
+      const newColumnId = generateId();
+      return {
+        ...state,
+        boards: createColumnAndUpdateTheBoard(
+          state,
+          action.payload.newColumnData,
+          action.payload.boardId,
+          newColumnId
+        ),
+      };
+
     default:
       return state;
   }
@@ -61,7 +75,7 @@ export default function reducer(
 
 // TODO: generate uuid for the boards
 function generateId() {
-  return String(Math.random() * 10);
+  return String(Math.floor(Math.random() * 10));
 }
 
 function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
@@ -69,26 +83,26 @@ function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
 }
 
 // Fixme: resolve overload problem
-function updateBoardAndUpdateTheList(
-  state: ReduxStateType,
-  id: Id,
-  updateData: UpdateBoardDataType
-): BoardType[] {
-  const boardsToUpdate = state.boards.filter(
-    (board: BoardType) => board.id !== id
-  );
-  const boardToUpdate = getBoardById(state.boards, id);
-  const updatedKeys = Object.keys(updateData);
-
-  const updatedBoard = updatedKeys.reduce((total, current) => {
-    return {
-      ...total,
-      [current]: updateData[current],
-    };
-  }, boardToUpdate);
-
-  return [...boardsToUpdate, updatedBoard];
-}
+// function updateBoardAndUpdateTheList(
+//   state: ReduxStateType,
+//   id: Id,
+//   updateData: UpdateBoardDataType
+// ): BoardType[] {
+//   const boardsToUpdate = state.boards.filter(
+//     (board: BoardType) => board.id !== id
+//   );
+//   const boardToUpdate = getBoardById(state.boards, id);
+//   const updatedKeys = Object.keys(updateData);
+//
+//   const updatedBoard = updatedKeys.reduce((total, current) => {
+//     return {
+//       ...total,
+//       [current]: updateData[current],
+//     };
+//   }, boardToUpdate);
+//
+//   return [...boardsToUpdate, updatedBoard];
+// }
 
 function createBoardAndUpdateTheList(
   state: ReduxStateType,
@@ -97,6 +111,7 @@ function createBoardAndUpdateTheList(
 ): BoardType[] {
   const newBoard = {
     id,
+    columns: [],
     ...newBoardData,
   };
 
@@ -108,4 +123,27 @@ function createBoardAndUpdateTheList(
 function deleteBoardAndUpdateTheList(state: ReduxStateType, id: Id) {
   const boards = [...state.boards];
   return boards.filter((board) => board.id !== id);
+}
+
+function createColumnAndUpdateTheBoard(
+  state: ReduxStateType,
+  newColumnData: NewColumnDataType,
+  boardId: Id,
+  id: Id
+): BoardType[] {
+  const newColumn = {
+    id,
+    tasks: [],
+    ...newColumnData,
+  };
+
+  const updatedBoards = [...state.boards];
+
+  const matchedBoard = updatedBoards.find((board) => board.id === boardId);
+
+  if (matchedBoard) {
+    matchedBoard.columns = [...matchedBoard.columns, newColumn];
+  }
+
+  return updatedBoards;
 }

@@ -2,8 +2,14 @@ import {
   BOARD_UPDATE,
   BOARD_CREATE,
   CURRENT_BORAD_CHANGE,
+  COLUMN_CREATE,
 } from "./actionTypes";
-import { Id, ReduxActionType, UpdateBoardDataType } from "../../ts/types";
+import {
+  Id,
+  ReduxActionType,
+  UpdateBoardDataType,
+  NewColumnDataType,
+} from "../../ts/types";
 
 export function updateBoard(
   id: Id,
@@ -34,6 +40,19 @@ export function changeCurrentBoard(id: Id): ReduxActionType {
     type: CURRENT_BORAD_CHANGE,
     payload: {
       id,
+    },
+  };
+}
+
+export function createColumn(
+  newColumnData: NewColumnDataType,
+  boardId: Id
+): ReduxActionType {
+  return {
+    type: COLUMN_CREATE,
+    payload: {
+      newColumnData,
+      boardId,
     },
   };
 }
