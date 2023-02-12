@@ -1,4 +1,5 @@
 import uuid from "react-uuid";
+import ClassNames from "classnames";
 
 import {
   List,
@@ -12,15 +13,26 @@ import { AddToListItem } from "../AddToListItem";
 
 import { BoardsListProps } from "../../ts/types";
 
+import useCurrentBoard from "../../hooks/useCurrentBoard";
+
 import "./style.scss";
 
 export default function BoardsList({ boards }: BoardsListProps) {
+  const [currentBoard, changeBoard] = useCurrentBoard();
+
   function ListItems() {
     return (
       <>
-        {boards.map((board, index) => {
+        {boards.map((board) => {
           return (
-            <ListItem key={uuid()}>
+            <ListItem
+              key={uuid()}
+              className={ClassNames("list-item", {
+                "list-item--selected": currentBoard?.id === board.id,
+              })}
+              onClick={() => changeBoard(board.id)}
+              sx={{ cursor: "pointer" }}
+            >
               <ListItemIcon>
                 <DashboardOutlined fontSize="small" />
               </ListItemIcon>
@@ -34,7 +46,9 @@ export default function BoardsList({ boards }: BoardsListProps) {
 
   return (
     <List>
-      <Typography>All Boards ({boards.length})</Typography>
+      <Typography fontSize="medium" sx={{ ml: 2, mb: 2 }}>
+        All Boards ({boards.length})
+      </Typography>
       <ListItems />
       <AddToListItem />
     </List>

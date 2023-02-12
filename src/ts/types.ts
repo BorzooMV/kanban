@@ -33,6 +33,10 @@ export type NewColumnDataType = {
   name: string;
 };
 
+export type NewTaskDataType = {
+  defenition: string;
+};
+
 // *****
 // Hooks
 // *****

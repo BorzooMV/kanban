@@ -5,3 +5,5 @@ export const BOARD_DELETE = "BOARD_DELETE";
 export const CURRENT_BORAD_CHANGE = "CURRENT_BORAD_CHANGE ";
 
 export const COLUMN_CREATE = "COLUMN_CREATE";
+
+export const TASK_CREATE = "TASK_CREATE";

@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
-import { createColumn } from "../../../modules/redux/actions";
+import { createTask } from "../../../modules/redux/actions";
 import useCurrentBoard from "../../../hooks/useCurrentBoard";
 
+import { ColumnType } from "../../../ts/types";
 import {
   Button,
   Divider,
   FormLabel,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -16,10 +19,12 @@ import {
 
 import "../style.scss";
 
-export default function CreateColumnForm({
+export default function CreateTask({
   closeModal,
+  columns,
 }: {
   closeModal: () => void;
+  columns: ColumnType[];
 }) {
   const [currentBoard] = useCurrentBoard();
   const dispatch = useDispatch();
@@ -28,11 +33,18 @@ export default function CreateColumnForm({
   // TODO: add form validation
   const formik = useFormik({
     initialValues: {
-      name: "",
+      defenition: "",
+      column: columns[0].id,
     },
     onSubmit: (values) => {
       if (currentBoard) {
-        dispatch(createColumn({ name: values.name }, currentBoard.id));
+        dispatch(
+          createTask(
+            { defenition: values.defenition },
+            currentBoard.id,
+            values.column
+          )
+        );
       }
     },
   });
@@ -48,20 +60,40 @@ export default function CreateColumnForm({
     <form className="main-modal-form">
       <Typography fontSize="large">Create New Column</Typography>
       <Divider sx={{ bgcolor: theme.palette.primary.main, my: 2 }} />
-      <FormLabel htmlFor="column-name">
+      <FormLabel htmlFor="task-name">
         <Typography fontSize="medium" color="black">
-          Enter the name of the new column:
+          Task Defenetion
         </Typography>
       </FormLabel>
       <TextField
         required
-        id="column-name"
-        name="name"
+        id="task-name"
+        name="defenition"
         onChange={formik.handleChange}
-        value={formik.values.name}
-        placeholder="New Column"
+        value={formik.values.defenition}
+        placeholder="Drink Water"
         sx={{ my: 1, width: "100%" }}
       />
+      <Divider sx={{ my: 1 }} />
+      <FormLabel htmlFor="task-column">
+        <Typography fontSize="medium" color="black">
+          Select the Column
+        </Typography>
+      </FormLabel>
+      <Select
+        id="task-column"
+        name="column"
+        value={formik.values.column}
+        label="Column"
+        onChange={formik.handleChange}
+        variant="filled"
+      >
+        {columns.map((column) => (
+          <MenuItem value={column.id} key={column.id}>
+            {column.name}
+          </MenuItem>
+        ))}
+      </Select>
       <Divider sx={{ my: 1 }} />
       <Stack direction="row" spacing={2}>
         <Button

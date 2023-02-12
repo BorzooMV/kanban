@@ -27,11 +27,14 @@ export default function Sidebar() {
         "& .MuiDrawer-paper": {
           width: `${SIDEBAR_WIDTH}`,
           bgcolor: "darkBackground.light",
+          p: 0,
         },
       }}
     >
-      <Toolbar>
-        <Typography>Kanban</Typography>
+      <Toolbar className="logo-toolbar">
+        <Typography variant="h5" fontWeight="bold">
+          Kanban
+        </Typography>
       </Toolbar>
       <Divider sx={{ opacity: 0 }} />
       <BoardsList boards={boards} />

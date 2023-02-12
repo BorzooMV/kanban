@@ -3,3 +3,13 @@
 li .MuiTypography-root {
   font-size: 0.8rem;
 }
+
+.MuiListItem-root.list-item {
+  padding-left: 1rem;
+  &--selected {
+    background: $primary;
+    width: 90%;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+}

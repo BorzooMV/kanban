@@ -1,13 +1,26 @@
+import { useState } from "react";
+
 import { SIDEBAR_WIDTH } from "../../utils/const";
-import { Box, Button, Typography, Toolbar } from "@mui/material";
+import useCurrentBoard from "../../hooks/useCurrentBoard";
+
+import CreateTask from "../Forms/CreateTask";
+
+import { Box, Button, Typography, Toolbar, Modal } from "@mui/material";
 
 import "./style.scss";
-import useCurrentBoard from "../../hooks/useCurrentBoard";
 
 export default function Header() {
   const [currentBoard] = useCurrentBoard();
-  const hasCurrentBoardValue = Boolean(currentBoard);
-  function handleTestButton() {}
+  const [isModalOpen, setModalOpen] = useState(false);
+  const isAbleToCreateTask = currentBoard && currentBoard.columns.length > 0;
+
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
 
   return (
     <Box
@@ -17,6 +30,14 @@ export default function Header() {
         ml: `${SIDEBAR_WIDTH}`,
       }}
     >
+      <Modal open={isModalOpen} onClose={closeModal}>
+        <>
+          <CreateTask
+            closeModal={closeModal}
+            columns={currentBoard?.columns || []}
+          />
+        </>
+      </Modal>
       <Toolbar
         sx={{
           display: "flex",
@@ -31,8 +52,8 @@ export default function Header() {
           <Button
             color="primary"
             variant="contained"
-            onClick={handleTestButton}
-            disabled={!hasCurrentBoardValue}
+            onClick={openModal}
+            disabled={!isAbleToCreateTask}
           >
             Add New Task
           </Button>
