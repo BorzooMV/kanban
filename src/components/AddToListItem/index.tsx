@@ -11,6 +11,8 @@ import {
   useTheme,
 } from "@mui/material";
 
+import "../BoardsList/style.scss";
+
 export function AddToListItem() {
   const [isModalOpen, setModalOpen] = useState(false);
   const theme = useTheme();
@@ -30,7 +32,7 @@ export function AddToListItem() {
           <CreateBoardForm closeModal={closeModal} />
         </>
       </Modal>
-      <ListItem onClick={openModal}>
+      <ListItem onClick={openModal} className="list-item">
         <ListItemIcon>
           <DashboardOutlined sx={{ color: theme.palette.primary.main }} />
         </ListItemIcon>

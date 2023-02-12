@@ -27,7 +27,7 @@ export default function BoardsList({ boards }: BoardsListProps) {
           return (
             <ListItem
               key={uuid()}
-              className={ClassNames({
+              className={ClassNames("list-item", {
                 "list-item--selected": currentBoard?.id === board.id,
               })}
               onClick={() => changeBoard(board.id)}
@@ -46,7 +46,9 @@ export default function BoardsList({ boards }: BoardsListProps) {
 
   return (
     <List>
-      <Typography>All Boards ({boards.length})</Typography>
+      <Typography fontSize="medium" sx={{ ml: 2, mb: 2 }}>
+        All Boards ({boards.length})
+      </Typography>
       <ListItems />
       <AddToListItem />
     </List>
