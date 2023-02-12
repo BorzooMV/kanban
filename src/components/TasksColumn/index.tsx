@@ -24,7 +24,7 @@ export default function TasksColumn({ columnData }: TasksColumnProps) {
       </Stack>
       <Divider sx={{ my: 2, opacity: 0 }} />
       <Stack direction="column" spacing={2}>
-        {tasks.map((task: TaskType) => {
+        {tasks?.map((task: TaskType) => {
           return <TaskCard key={task.id} task={task} />;
         })}
       </Stack>

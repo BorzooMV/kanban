@@ -1,8 +1,11 @@
+import uuid from "react-uuid";
+
 import {
   BOARD_CREATE,
   BOARD_DELETE,
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
+  TASK_CREATE,
 } from "./actionTypes";
 import {
   BoardType,
@@ -11,8 +14,8 @@ import {
   ReduxStateType,
   UpdateBoardDataType,
   NewColumnDataType,
+  NewTaskDataType,
 } from "../../ts/types";
-import uuid from "react-uuid";
 
 const INITIAL_STATE = {
   boards: [],
@@ -66,6 +69,19 @@ export default function reducer(
           action.payload.newColumnData,
           action.payload.boardId,
           newColumnId
+        ),
+      };
+
+    case TASK_CREATE:
+      const newTaskId = generateId();
+      return {
+        ...state,
+        boards: createTaskAndUpdateTheBoard(
+          state,
+          action.payload.newTaskData,
+          action.payload.boardId,
+          action.payload.columnId,
+          newTaskId
         ),
       };
 
@@ -144,6 +160,35 @@ function createColumnAndUpdateTheBoard(
 
   if (matchedBoard) {
     matchedBoard.columns = [...matchedBoard.columns, newColumn];
+  }
+
+  return updatedBoards;
+}
+
+function createTaskAndUpdateTheBoard(
+  state: ReduxStateType,
+  newTaskData: NewTaskDataType,
+  boardId: Id,
+  columnId: Id,
+  id: Id
+): BoardType[] {
+  const newTask = {
+    id,
+    ...newTaskData,
+  };
+
+  const updatedBoards = [...state.boards];
+
+  const matchedBoard = updatedBoards.find((board) => board.id === boardId);
+
+  if (matchedBoard) {
+    const matchedColumn = matchedBoard.columns.find((column) => {
+      return column.id === columnId;
+    });
+
+    if (matchedColumn) {
+      matchedColumn.tasks = [...(matchedColumn.tasks || []), newTask];
+    }
   }
 
   return updatedBoards;

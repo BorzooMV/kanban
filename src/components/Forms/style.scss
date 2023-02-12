@@ -11,13 +11,13 @@
   border-radius: 5px;
 }
 
-.MuiTextField-root {
-  .MuiInputBase-root {
-    color: $darkBackground;
-  }
+.MuiInputBase-input {
+  background-color: lighten($primary, 35) !important;
+  color: $darkBackground !important;
+  border-radius: inherit !important;
 
-  .MuiOutlinedInput-input {
-    background-color: lighten($primary, 35);
-    border-radius: inherit;
+  &.MuiSelect-filled {
+    width: 200px !important;
+    color: $darkBackground !important;
   }
 }
