@@ -16,6 +16,9 @@
 
   &__main-wrapper {
     padding: 2rem;
+    width: calc(100% - $sidebarWidth);
+    height: 100vh;
+    overflow: auto;
   }
 }
 
