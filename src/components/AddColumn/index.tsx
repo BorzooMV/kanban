@@ -28,11 +28,17 @@ export default function AddColumn() {
           <CreateColumnForm closeModal={closeModal} />
         </>
       </Modal>
-      <Box sx={{ minWidth: TASKS_COLUMNS_WIDTH, minHeight: "300px" }}>
+      <Box
+        sx={{
+          minWidth: TASKS_COLUMNS_WIDTH,
+          minHeight: TASKS_COLUMNS_WIDTH,
+          height: TASKS_COLUMNS_WIDTH,
+        }}
+      >
         <Button
           variant="outlined"
           disabled={isDisabled}
-          sx={{ width: "100%", height: "100%" }}
+          sx={{ width: "100%", height: "100%", mr: 2 }}
           onClick={openModal}
         >
           <Stack direction="column" alignItems="center" spacing={2}>

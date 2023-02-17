@@ -55,6 +55,7 @@ export default function CreateColumnForm({
       </FormLabel>
       <TextField
         required
+        autoFocus
         id="column-name"
         name="name"
         onChange={formik.handleChange}

@@ -67,6 +67,7 @@ export default function CreateTask({
       </FormLabel>
       <TextField
         required
+        autoFocus
         id="task-name"
         name="defenition"
         onChange={formik.handleChange}

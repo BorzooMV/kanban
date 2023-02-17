@@ -15,7 +15,6 @@ import {
 
 import "../style.scss";
 
-// TODO: autoselect name input when modal gets open
 export default function CreateBoardForm({
   closeModal,
 }: {
@@ -52,6 +51,7 @@ export default function CreateBoardForm({
       </FormLabel>
       <TextField
         required
+        autoFocus
         id="board-name"
         name="name"
         onChange={formik.handleChange}
