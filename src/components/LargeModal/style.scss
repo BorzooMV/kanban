@@ -1,0 +1,20 @@
+@import "../../utils/theme/global.scss";
+
+.large-modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 75%;
+  min-height: 80%;
+  height: 80%;
+  padding: 2rem;
+  border-radius: 5px;
+
+  &__close-button {
+    position: absolute !important;
+    right: 2rem;
+    top: 2rem;
+  }
+}
