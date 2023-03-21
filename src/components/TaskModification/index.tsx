@@ -16,7 +16,7 @@ export default function TaskModification({ task }: TaskModificationProps) {
       <Typography variant="h4" sx={{ mb: 2 }}>
         {draftTask.defenition}
       </Typography>
-      <Box sx={{ flex: 1, overflowY: "auto" }}>
+      <Box sx={{ flex: 1, overflowY: "auto", px: 2 }}>
         <ModalContent draftTask={draftTask} setDraftTask={setDraftTask} />
       </Box>
       <ModalActions />
