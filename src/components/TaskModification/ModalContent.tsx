@@ -3,8 +3,11 @@ import uuid from "react-uuid";
 
 import { AddCircle } from "@mui/icons-material";
 import {
+  Id,
   SubTaskCheckboxProps,
+  SubtaskType,
   TaskModificationModalContentProps,
+  TaskType,
 } from "../../ts/types";
 import {
   Box,
@@ -15,10 +18,10 @@ import {
   Stack,
 } from "@mui/material";
 
-function SubTaskCheckbox({ task }: SubTaskCheckboxProps) {
+function SubTaskCheckbox({ task, onChange }: SubTaskCheckboxProps) {
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Checkbox size="small" checked={task.done} />
+      <Checkbox size="small" checked={task.done} onChange={onChange} />
       <Typography>{task.defenition}</Typography>
     </Stack>
   );
@@ -59,6 +62,30 @@ export default function ModalContent({
     }
   }
 
+  function toggleDoneTask(taskId: Id) {
+    setDraftTask((prevDraftTask: TaskType) => {
+      if (prevDraftTask.subtasks) {
+        const draftSubtasks = prevDraftTask.subtasks.map((task) => {
+          if (task.id === taskId) {
+            return {
+              ...task,
+              done: !task.done,
+            };
+          } else {
+            return task;
+          }
+        });
+
+        return {
+          ...prevDraftTask,
+          subtasks: draftSubtasks,
+        };
+      } else {
+        return prevDraftTask;
+      }
+    });
+  }
+
   function modifyComment({ target }: { target: any }) {
     setDraftTask((prevDraftTask) => {
       return {
@@ -67,6 +94,7 @@ export default function ModalContent({
       };
     });
   }
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
@@ -97,7 +125,11 @@ export default function ModalContent({
                 className="task-modification__subtask__tasks"
               >
                 {draftTask.subtasks?.map((task) => (
-                  <SubTaskCheckbox key={task.id} task={task} />
+                  <SubTaskCheckbox
+                    key={task.id}
+                    task={task}
+                    onChange={() => toggleDoneTask(task.id)}
+                  />
                 ))}
               </Box>
             </Stack>

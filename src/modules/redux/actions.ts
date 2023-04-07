@@ -4,6 +4,7 @@ import {
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
   TASK_CREATE,
+  TASK_UPDATE,
 } from "./actionTypes";
 import {
   Id,
@@ -11,6 +12,7 @@ import {
   UpdateBoardDataType,
   NewColumnDataType,
   NewTaskDataType,
+  TaskType,
 } from "../../ts/types";
 
 export function updateBoard(
@@ -70,6 +72,15 @@ export function createTask(
       newTaskData,
       boardId,
       columnId,
+    },
+  };
+}
+
+export function updateTask(updatedTaskData: TaskType): ReduxActionType {
+  return {
+    type: TASK_UPDATE,
+    payload: {
+      updatedTaskData,
     },
   };
 }

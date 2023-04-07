@@ -60,6 +60,8 @@ export type SubtaskType = {
 
 export type TaskType = {
   id: Id;
+  columnId: Id;
+  boardId: Id;
   defenition: string;
   comment?: string;
   subtasks?: SubtaskType[];
@@ -100,6 +102,7 @@ export type TaskModificationProps = {
 
 export type SubTaskCheckboxProps = {
   task: SubtaskType;
+  onChange: () => void;
 };
 
 export type ScrollableContainerProps = {
@@ -109,4 +112,8 @@ export type ScrollableContainerProps = {
 export type TaskModificationModalContentProps = {
   draftTask: TaskType;
   setDraftTask: Dispatch<SetStateAction<TaskType>>;
+};
+
+export type TaskModificationModalActionsProps = {
+  handleUpdateTask: () => void;
 };

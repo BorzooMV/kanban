@@ -6,9 +6,11 @@ import {
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
   TASK_CREATE,
+  TASK_UPDATE,
 } from "./actionTypes";
 import {
   BoardType,
+  TaskType,
   Id,
   ReduxActionType,
   ReduxStateType,
@@ -38,16 +40,6 @@ export default function reducer(
         ),
         currentBoard: newBoardId,
       };
-
-    // case BOARD_UPDATE:
-    //   return {
-    //     ...state,
-    //     boards: updateBoardAndUpdateTheList(
-    //       state,
-    //       action.payload.id,
-    //       action.payload.updateData
-    //     ),
-    //   };
 
     case BOARD_DELETE:
       return {
@@ -85,6 +77,15 @@ export default function reducer(
         ),
       };
 
+    case TASK_UPDATE:
+      return {
+        ...state,
+        boards: updateTaskAndUpdateTheBoard(
+          state,
+          action.payload.updatedTaskData
+        ),
+      };
+
     default:
       return state;
   }
@@ -98,28 +99,6 @@ function generateId() {
 function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
   return boards.find((board) => board.id === id);
 }
-
-// Fixme: resolve overload problem
-// function updateBoardAndUpdateTheList(
-//   state: ReduxStateType,
-//   id: Id,
-//   updateData: UpdateBoardDataType
-// ): BoardType[] {
-//   const boardsToUpdate = state.boards.filter(
-//     (board: BoardType) => board.id !== id
-//   );
-//   const boardToUpdate = getBoardById(state.boards, id);
-//   const updatedKeys = Object.keys(updateData);
-//
-//   const updatedBoard = updatedKeys.reduce((total, current) => {
-//     return {
-//       ...total,
-//       [current]: updateData[current],
-//     };
-//   }, boardToUpdate);
-//
-//   return [...boardsToUpdate, updatedBoard];
-// }
 
 function createBoardAndUpdateTheList(
   state: ReduxStateType,
@@ -174,6 +153,8 @@ function createTaskAndUpdateTheBoard(
 ): BoardType[] {
   const newTask = {
     id,
+    boardId,
+    columnId,
     ...newTaskData,
   };
 
@@ -190,6 +171,26 @@ function createTaskAndUpdateTheBoard(
       matchedColumn.tasks = [...(matchedColumn.tasks || []), newTask];
     }
   }
+
+  return updatedBoards;
+}
+
+function updateTaskAndUpdateTheBoard(
+  state: ReduxStateType,
+  updatedTaskData: TaskType
+) {
+  const updatedBoards = state.boards.map((board) => {
+    const updatedColumns = board.columns.map((column) => {
+      const updatedTasks = column.tasks?.map((task) => {
+        if (task.id === updatedTaskData.id) {
+          return { ...task, ...updatedTaskData };
+        }
+        return task;
+      });
+      return { ...column, tasks: updatedTasks };
+    });
+    return { ...board, columns: updatedColumns };
+  });
 
   return updatedBoards;
 }
