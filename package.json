@@ -1,8 +1,11 @@
 {
-  "name": "shopping-cart",
+  "name": "kanban",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=19.8.1"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
