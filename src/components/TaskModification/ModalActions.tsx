@@ -1,9 +1,9 @@
 import { TaskModificationModalActionsProps } from "../../ts/types";
 import { Box, Button } from "@mui/material";
 
-// TODO: add disabled prop for save button
 export default function ModalActions({
   handleUpdateTask,
+  disabled,
 }: TaskModificationModalActionsProps) {
   return (
     <Box sx={{ py: 2 }}>
@@ -12,6 +12,7 @@ export default function ModalActions({
         color="primary"
         variant="contained"
         onClick={handleUpdateTask}
+        disabled={disabled}
       >
         Save
       </Button>

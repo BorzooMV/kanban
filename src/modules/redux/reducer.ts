@@ -91,7 +91,6 @@ export default function reducer(
   }
 }
 
-// TODO: generate uuid for the boards
 function generateId() {
   return uuid();
 }
@@ -155,6 +154,8 @@ function createTaskAndUpdateTheBoard(
     id,
     boardId,
     columnId,
+    comment: "",
+    subtasks: [],
     ...newTaskData,
   };
 
@@ -168,7 +169,8 @@ function createTaskAndUpdateTheBoard(
     });
 
     if (matchedColumn) {
-      matchedColumn.tasks = [...(matchedColumn.tasks || []), newTask];
+      const prevTasks = matchedColumn.tasks ?? [];
+      matchedColumn.tasks = [...prevTasks, newTask];
     }
   }
 

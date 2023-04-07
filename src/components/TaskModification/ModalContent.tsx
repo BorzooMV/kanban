@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import uuid from "react-uuid";
 
 import { AddCircle } from "@mui/icons-material";
 import {
   Id,
   SubTaskCheckboxProps,
-  SubtaskType,
   TaskModificationModalContentProps,
   TaskType,
 } from "../../ts/types";
@@ -32,7 +31,8 @@ export default function ModalContent({
   setDraftTask,
 }: TaskModificationModalContentProps) {
   const [isCreatingTask, setIsCreatingTask] = useState(false);
-  const hasSubtask = Boolean(draftTask.subtasks);
+  const hasSubtask =
+    Boolean(draftTask.subtasks) && draftTask.subtasks.length > 0;
 
   function handleCreateTask() {
     setIsCreatingTask(true);

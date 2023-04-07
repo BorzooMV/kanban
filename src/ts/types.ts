@@ -63,8 +63,8 @@ export type TaskType = {
   columnId: Id;
   boardId: Id;
   defenition: string;
-  comment?: string;
-  subtasks?: SubtaskType[];
+  comment: string;
+  subtasks: SubtaskType[] | [];
 };
 
 export type ColumnType = {
@@ -116,4 +116,5 @@ export type TaskModificationModalContentProps = {
 
 export type TaskModificationModalActionsProps = {
   handleUpdateTask: () => void;
+  disabled?: boolean;
 };

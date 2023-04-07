@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import isEqual from "lodash/isEqual";
 
 import { updateTask } from "../../modules/redux/actions";
 
@@ -14,8 +15,7 @@ import "./style.scss";
 export default function TaskModification({ task }: TaskModificationProps) {
   const [draftTask, setDraftTask] = useState(task);
   const dispatch = useDispatch();
-
-  // TODO: add a const that evaluate if the draft state is different from our global state, we have to add loadash the project to compair these two objects
+  const stateHasChanged = !isEqual(draftTask, task);
 
   function handleUpdateTask() {
     dispatch(updateTask(draftTask));
@@ -29,7 +29,10 @@ export default function TaskModification({ task }: TaskModificationProps) {
       <Box sx={{ flex: 1, overflowY: "auto", px: 2 }}>
         <ModalContent draftTask={draftTask} setDraftTask={setDraftTask} />
       </Box>
-      <ModalActions handleUpdateTask={handleUpdateTask} />
+      <ModalActions
+        handleUpdateTask={handleUpdateTask}
+        disabled={!stateHasChanged}
+      />
     </Box>
   );
 }
