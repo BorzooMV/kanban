@@ -44,4 +44,33 @@ $fields-border: none;
       border-radius: $fields-border-radius;
     }
   }
+
+  &__move-task {
+    &__inputs {
+      .MuiInputBase-input {
+        background-color: lighten($darkBackground, 75) !important;
+        color: $darkBackground !important;
+        border-radius: inherit !important;
+        width: 10rem !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .Mui-disabled {
+        -webkit-text-fill-color: $darkBackground !important;
+        color: $darkBackground !important;
+      }
+
+      .MuiSelect {
+        &-select {
+          padding: $fields-padding !important;
+          padding-right: calc($fields-padding + 0.6rem) !important;
+        }
+
+        &-icon {
+          color: $darkBackground;
+        }
+      }
+    }
+  }
 }

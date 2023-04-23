@@ -1,9 +1,11 @@
 import { useState } from "react";
 import uuid from "react-uuid";
+import { useSelector } from "react-redux";
 
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, SystemUpdateAlt } from "@mui/icons-material";
 import {
   Id,
+  ReduxStoreType,
   SubTaskCheckboxProps,
   TaskModificationModalContentProps,
   TaskType,
@@ -15,6 +17,8 @@ import {
   TextField,
   Typography,
   Stack,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 function SubTaskCheckbox({ task, onChange }: SubTaskCheckboxProps) {
@@ -33,6 +37,15 @@ export default function ModalContent({
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const hasSubtask =
     Boolean(draftTask.subtasks) && draftTask.subtasks.length > 0;
+
+  const boards = useSelector((store: ReduxStoreType) => store.root.boards);
+  const columns =
+    boards?.find((board) => board.id === draftTask.boardId)?.columns || [];
+
+  const currentColumn = columns.find(
+    (column) => column.id === draftTask.columnId
+  );
+  const currentColumnName = currentColumn?.name || "Unknown";
 
   function handleCreateTask() {
     setIsCreatingTask(true);
@@ -160,7 +173,31 @@ export default function ModalContent({
         </Stack>
       </Grid>
       <Grid item xs={6}>
-        <Typography>Move the task to the a new column</Typography>
+        <Stack direction="column" alignItems="start">
+          <Typography sx={{ mb: 1 }}>Move the task to a new column</Typography>
+          <Stack direction="column" alignItems="center" spacing={1}>
+            <TextField
+              className="task-modification__move-task__inputs"
+              size="small"
+              value={currentColumnName}
+              variant="outlined"
+              disabled
+            />
+            <SystemUpdateAlt />
+            <Select className="task-modification__move-task__inputs">
+              {columns.map((column) => {
+                if (column.name === currentColumnName) {
+                  return null;
+                }
+                return (
+                  <MenuItem key={column.id} value={column.id}>
+                    {column.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </Stack>
+        </Stack>
       </Grid>
     </Grid>
   );
