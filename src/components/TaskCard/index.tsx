@@ -9,6 +9,7 @@ export default function TaskCard({ task }: TaskCardProps) {
   const [isModalOpen, setModalOpen] = useState(false);
   const { defenition, subtasks } = task;
   const theme = useTheme();
+  const completeSubtasks = subtasks.filter((task) => task.done);
 
   function openTaskModal() {
     setModalOpen(true);
@@ -29,7 +30,9 @@ export default function TaskCard({ task }: TaskCardProps) {
           fontSize="small"
           sx={{ color: theme.palette.primary.faded }}
         >
-          {subtasks && subtasks.length > 0 && `0 of ${subtasks.length} subtask`}
+          {subtasks &&
+            subtasks.length > 0 &&
+            `${completeSubtasks.length} of ${subtasks.length} subtask`}
         </Typography>
       </Card>
     </>
