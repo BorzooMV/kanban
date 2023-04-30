@@ -33,6 +33,7 @@ function SubTaskCheckbox({ task, onChange }: SubTaskCheckboxProps) {
 export default function ModalContent({
   draftTask,
   setDraftTask,
+  setDraftColumnId,
 }: TaskModificationModalContentProps) {
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const hasSubtask =
@@ -97,6 +98,10 @@ export default function ModalContent({
         return prevDraftTask;
       }
     });
+  }
+
+  function changeColumnId({ target }: { target: any }) {
+    setDraftColumnId(target.value);
   }
 
   function modifyComment({ target }: { target: any }) {
@@ -184,7 +189,10 @@ export default function ModalContent({
               disabled
             />
             <SystemUpdateAlt />
-            <Select className="task-modification__move-task__inputs">
+            <Select
+              className="task-modification__move-task__inputs"
+              onChange={changeColumnId}
+            >
               {columns.map((column) => {
                 if (column.name === currentColumnName) {
                   return null;

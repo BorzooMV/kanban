@@ -112,6 +112,7 @@ export type ScrollableContainerProps = {
 export type TaskModificationModalContentProps = {
   draftTask: TaskType;
   setDraftTask: Dispatch<SetStateAction<TaskType>>;
+  setDraftColumnId: Dispatch<SetStateAction<string>>;
 };
 
 export type TaskModificationModalActionsProps = {

@@ -5,6 +5,7 @@ import {
   BOARD_DELETE,
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
+  COLUMN_CHANGE,
   TASK_CREATE,
   TASK_UPDATE,
 } from "./actionTypes";
@@ -61,6 +62,18 @@ export default function reducer(
           action.payload.newColumnData,
           action.payload.boardId,
           newColumnId
+        ),
+      };
+
+    case COLUMN_CHANGE:
+      return {
+        ...state,
+        boards: changeColumnIdAndUpdateBoards(
+          state,
+          action.payload.boardId,
+          action.payload.currentColumnId,
+          action.payload.newColumnId,
+          action.payload.taskId
         ),
       };
 
@@ -192,6 +205,45 @@ function updateTaskAndUpdateTheBoard(
       return { ...column, tasks: updatedTasks };
     });
     return { ...board, columns: updatedColumns };
+  });
+
+  return updatedBoards;
+}
+
+function changeColumnIdAndUpdateBoards(
+  state: ReduxStateType,
+  boardId: Id,
+  currentColumnId: Id,
+  newColumnId: Id,
+  taskId: Id
+) {
+  const updatedBoards = state.boards.map((board) => {
+    if (board.id === boardId) {
+      let selectedTask = board.columns
+        .find((column) => column.id === currentColumnId)
+        ?.tasks?.find((task) => task.id === taskId);
+
+      const updatedColumns = board.columns.map((column) => {
+        if (column.id === currentColumnId) {
+          const updatedTasks = column.tasks?.filter(
+            (task) => task.id !== selectedTask?.id
+          );
+          return { ...column, tasks: updatedTasks };
+        }
+
+        if (column.id === newColumnId) {
+          if (column.tasks) {
+            return { ...column, tasks: [...column.tasks, selectedTask] };
+          } else {
+            return { ...column, tasks: [selectedTask] };
+          }
+        }
+
+        return column;
+      });
+      return { ...board, columns: updatedColumns };
+    }
+    return board;
   });
 
   return updatedBoards;

@@ -3,6 +3,7 @@ import {
   BOARD_CREATE,
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
+  COLUMN_CHANGE,
   TASK_CREATE,
   TASK_UPDATE,
 } from "./actionTypes";
@@ -57,6 +58,29 @@ export function createColumn(
     payload: {
       newColumnData,
       boardId,
+    },
+  };
+}
+
+export function changeTaskColumn(
+  boardId: Id,
+  currentColumnId: Id,
+  newColumnId: Id,
+  taskId: Id
+): ReduxActionType {
+  console.log({
+    boardId,
+    currentColumnId,
+    newColumnId,
+    taskId,
+  });
+  return {
+    type: COLUMN_CHANGE,
+    payload: {
+      boardId,
+      currentColumnId,
+      newColumnId,
+      taskId,
     },
   };
 }
