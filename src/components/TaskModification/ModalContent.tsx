@@ -43,6 +43,8 @@ export default function ModalContent({
   const columns =
     boards?.find((board) => board.id === draftTask.boardId)?.columns || [];
 
+  const onlyOneColumn = columns.length === 1;
+
   const currentColumn = columns.find(
     (column) => column.id === draftTask.columnId
   );
@@ -192,7 +194,14 @@ export default function ModalContent({
             <Select
               className="task-modification__move-task__inputs"
               onChange={changeColumnId}
+              disabled={onlyOneColumn}
+              defaultValue=" "
             >
+              <MenuItem value=" ">
+                <Typography variant="body1" fontStyle="italic">
+                  {onlyOneColumn ? "Add another column" : "Select a column"}
+                </Typography>
+              </MenuItem>
               {columns.map((column) => {
                 if (column.name === currentColumnName) {
                   return null;

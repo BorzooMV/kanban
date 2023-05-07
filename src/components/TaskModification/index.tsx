@@ -17,18 +17,19 @@ export default function TaskModification({ task }: TaskModificationProps) {
   const [draftColumnId, setDraftColumnId] = useState(task.columnId);
   const dispatch = useDispatch();
   const stateHasChanged = !isEqual(draftTask, task);
-  const columnHasChanged = !(draftColumnId === task.columnId);
+  const columnHasChanged =
+    draftColumnId !== " " && !(draftColumnId === task.columnId);
   const currentBoard = useSelector(
     (store: ReduxStoreType) => store.root.currentBoard
   );
 
   function handleUpdateTask() {
+    dispatch(updateTask(draftTask));
     if (columnHasChanged && currentBoard) {
       dispatch(
         changeTaskColumn(currentBoard, task.columnId, draftColumnId, task.id)
       );
     }
-    dispatch(updateTask(draftTask));
   }
 
   return (
@@ -45,7 +46,7 @@ export default function TaskModification({ task }: TaskModificationProps) {
       </Box>
       <ModalActions
         handleUpdateTask={handleUpdateTask}
-        disabled={!stateHasChanged}
+        disabled={!stateHasChanged && !columnHasChanged}
       />
     </Box>
   );

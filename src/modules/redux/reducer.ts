@@ -219,23 +219,25 @@ function changeColumnIdAndUpdateBoards(
 ) {
   const updatedBoards = state.boards.map((board) => {
     if (board.id === boardId) {
-      let selectedTask = board.columns
+      const selectedTask = board.columns
         .find((column) => column.id === currentColumnId)
         ?.tasks?.find((task) => task.id === taskId);
+
+      const newTask = { ...selectedTask, columnId: newColumnId };
 
       const updatedColumns = board.columns.map((column) => {
         if (column.id === currentColumnId) {
           const updatedTasks = column.tasks?.filter(
-            (task) => task.id !== selectedTask?.id
+            (task) => task.id !== newTask?.id
           );
           return { ...column, tasks: updatedTasks };
         }
 
         if (column.id === newColumnId) {
           if (column.tasks) {
-            return { ...column, tasks: [...column.tasks, selectedTask] };
+            return { ...column, tasks: [...column.tasks, newTask] };
           } else {
-            return { ...column, tasks: [selectedTask] };
+            return { ...column, tasks: [newTask] };
           }
         }
 

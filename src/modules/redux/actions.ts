@@ -68,12 +68,6 @@ export function changeTaskColumn(
   newColumnId: Id,
   taskId: Id
 ): ReduxActionType {
-  console.log({
-    boardId,
-    currentColumnId,
-    newColumnId,
-    taskId,
-  });
   return {
     type: COLUMN_CHANGE,
     payload: {
