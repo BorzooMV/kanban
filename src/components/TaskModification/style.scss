@@ -1,0 +1,76 @@
+@import "../../utils/theme/global.scss";
+
+$fields-width: 70%;
+$fields-padding: 0.8rem;
+$fields-background-color: #eee;
+$fields-border-radius: 0.3rem;
+$fields-border: none;
+
+.task-modification {
+  &__textarea {
+    resize: none;
+    width: $fields-width !important;
+    padding: $fields-padding;
+    border: $fields-border;
+    background: $fields-background-color;
+    border-radius: $fields-border-radius;
+    margin-bottom: 1.5rem;
+  }
+
+  &__subtask {
+    &__create-task {
+      .MuiInputBase-input {
+        background-color: lighten($darkBackground, 75) !important;
+        color: $darkBackground !important;
+        border-radius: inherit !important;
+      }
+    }
+
+    &__add-text {
+      align-items: center;
+      color: $lightGrey;
+      cursor: pointer;
+
+      .MuiSvgIcon-root {
+        font-size: 1.3rem;
+      }
+    }
+
+    &__tasks {
+      width: $fields-width !important;
+      padding: $fields-padding;
+      border: $fields-border;
+      background: $fields-background-color;
+      border-radius: $fields-border-radius;
+    }
+  }
+
+  &__move-task {
+    &__inputs {
+      .MuiInputBase-input {
+        background-color: lighten($darkBackground, 75) !important;
+        color: $darkBackground !important;
+        border-radius: inherit !important;
+        width: 10rem !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .Mui-disabled {
+        -webkit-text-fill-color: $darkBackground !important;
+        color: $darkBackground !important;
+      }
+
+      .MuiSelect {
+        &-select {
+          padding: $fields-padding !important;
+          padding-right: calc($fields-padding + 0.6rem) !important;
+        }
+
+        &-icon {
+          color: $darkBackground;
+        }
+      }
+    }
+  }
+}

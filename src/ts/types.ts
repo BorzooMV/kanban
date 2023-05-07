@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 //*******
 //Globals
@@ -55,12 +55,16 @@ export type BoardType = {
 export type SubtaskType = {
   id: Id;
   defenition: string;
+  done: boolean;
 };
 
 export type TaskType = {
   id: Id;
+  columnId: Id;
+  boardId: Id;
   defenition: string;
-  subtasks?: SubtaskType[];
+  comment: string;
+  subtasks: SubtaskType[] | [];
 };
 
 export type ColumnType = {
@@ -84,4 +88,34 @@ export type TaskCardProps = {
 
 export type ColumnsProps = {
   columns: ColumnType[];
+};
+
+export type LargeModalProps = {
+  open: boolean;
+  onClose: () => void;
+  children: ChildrenType;
+};
+
+export type TaskModificationProps = {
+  task: TaskType;
+};
+
+export type SubTaskCheckboxProps = {
+  task: SubtaskType;
+  onChange: () => void;
+};
+
+export type ScrollableContainerProps = {
+  children: ChildrenType;
+};
+
+export type TaskModificationModalContentProps = {
+  draftTask: TaskType;
+  setDraftTask: Dispatch<SetStateAction<TaskType>>;
+  setDraftColumnId: Dispatch<SetStateAction<string>>;
+};
+
+export type TaskModificationModalActionsProps = {
+  handleUpdateTask: () => void;
+  disabled?: boolean;
 };

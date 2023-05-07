@@ -5,10 +5,13 @@ import {
   BOARD_DELETE,
   CURRENT_BORAD_CHANGE,
   COLUMN_CREATE,
+  COLUMN_CHANGE,
   TASK_CREATE,
+  TASK_UPDATE,
 } from "./actionTypes";
 import {
   BoardType,
+  TaskType,
   Id,
   ReduxActionType,
   ReduxStateType,
@@ -39,16 +42,6 @@ export default function reducer(
         currentBoard: newBoardId,
       };
 
-    // case BOARD_UPDATE:
-    //   return {
-    //     ...state,
-    //     boards: updateBoardAndUpdateTheList(
-    //       state,
-    //       action.payload.id,
-    //       action.payload.updateData
-    //     ),
-    //   };
-
     case BOARD_DELETE:
       return {
         ...state,
@@ -72,6 +65,18 @@ export default function reducer(
         ),
       };
 
+    case COLUMN_CHANGE:
+      return {
+        ...state,
+        boards: changeColumnIdAndUpdateBoards(
+          state,
+          action.payload.boardId,
+          action.payload.currentColumnId,
+          action.payload.newColumnId,
+          action.payload.taskId
+        ),
+      };
+
     case TASK_CREATE:
       const newTaskId = generateId();
       return {
@@ -85,12 +90,20 @@ export default function reducer(
         ),
       };
 
+    case TASK_UPDATE:
+      return {
+        ...state,
+        boards: updateTaskAndUpdateTheBoard(
+          state,
+          action.payload.updatedTaskData
+        ),
+      };
+
     default:
       return state;
   }
 }
 
-// TODO: generate uuid for the boards
 function generateId() {
   return uuid();
 }
@@ -98,28 +111,6 @@ function generateId() {
 function getBoardById(boards: BoardType[], id: Id): BoardType | undefined {
   return boards.find((board) => board.id === id);
 }
-
-// Fixme: resolve overload problem
-// function updateBoardAndUpdateTheList(
-//   state: ReduxStateType,
-//   id: Id,
-//   updateData: UpdateBoardDataType
-// ): BoardType[] {
-//   const boardsToUpdate = state.boards.filter(
-//     (board: BoardType) => board.id !== id
-//   );
-//   const boardToUpdate = getBoardById(state.boards, id);
-//   const updatedKeys = Object.keys(updateData);
-//
-//   const updatedBoard = updatedKeys.reduce((total, current) => {
-//     return {
-//       ...total,
-//       [current]: updateData[current],
-//     };
-//   }, boardToUpdate);
-//
-//   return [...boardsToUpdate, updatedBoard];
-// }
 
 function createBoardAndUpdateTheList(
   state: ReduxStateType,
@@ -174,6 +165,10 @@ function createTaskAndUpdateTheBoard(
 ): BoardType[] {
   const newTask = {
     id,
+    boardId,
+    columnId,
+    comment: "",
+    subtasks: [],
     ...newTaskData,
   };
 
@@ -187,9 +182,71 @@ function createTaskAndUpdateTheBoard(
     });
 
     if (matchedColumn) {
-      matchedColumn.tasks = [...(matchedColumn.tasks || []), newTask];
+      const prevTasks = matchedColumn.tasks ?? [];
+      matchedColumn.tasks = [...prevTasks, newTask];
     }
   }
+
+  return updatedBoards;
+}
+
+function updateTaskAndUpdateTheBoard(
+  state: ReduxStateType,
+  updatedTaskData: TaskType
+) {
+  const updatedBoards = state.boards.map((board) => {
+    const updatedColumns = board.columns.map((column) => {
+      const updatedTasks = column.tasks?.map((task) => {
+        if (task.id === updatedTaskData.id) {
+          return { ...task, ...updatedTaskData };
+        }
+        return task;
+      });
+      return { ...column, tasks: updatedTasks };
+    });
+    return { ...board, columns: updatedColumns };
+  });
+
+  return updatedBoards;
+}
+
+function changeColumnIdAndUpdateBoards(
+  state: ReduxStateType,
+  boardId: Id,
+  currentColumnId: Id,
+  newColumnId: Id,
+  taskId: Id
+) {
+  const updatedBoards = state.boards.map((board) => {
+    if (board.id === boardId) {
+      const selectedTask = board.columns
+        .find((column) => column.id === currentColumnId)
+        ?.tasks?.find((task) => task.id === taskId);
+
+      const newTask = { ...selectedTask, columnId: newColumnId };
+
+      const updatedColumns = board.columns.map((column) => {
+        if (column.id === currentColumnId) {
+          const updatedTasks = column.tasks?.filter(
+            (task) => task.id !== newTask?.id
+          );
+          return { ...column, tasks: updatedTasks };
+        }
+
+        if (column.id === newColumnId) {
+          if (column.tasks) {
+            return { ...column, tasks: [...column.tasks, newTask] };
+          } else {
+            return { ...column, tasks: [newTask] };
+          }
+        }
+
+        return column;
+      });
+      return { ...board, columns: updatedColumns };
+    }
+    return board;
+  });
 
   return updatedBoards;
 }
