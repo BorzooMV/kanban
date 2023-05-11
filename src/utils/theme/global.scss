@@ -25,3 +25,20 @@ body {
 html {
   overflow: hidden;
 }
+
+@media screen and (max-width: 1000px) {
+  .screen-size-error {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 50%);
+    border: 2px solid $primary;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .layout {
+    display: none !important;
+  }
+}

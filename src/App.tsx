@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, Typography } from "@mui/material";
 import { Provider } from "react-redux";
 
 import theme from "./utils/theme/theme";
@@ -12,6 +12,12 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Root />
+        <div className="screen-size-error">
+          <Typography color="white">
+            Unfortunately this application doesn't support smaller screens,
+            please make your screen size wider or use another device to proceed.{" "}
+          </Typography>
+        </div>
       </ThemeProvider>
     </Provider>
   );

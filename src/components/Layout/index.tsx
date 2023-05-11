@@ -13,7 +13,7 @@ export default function Layout() {
   const columnsData = currentBoard ? currentBoard.columns : [];
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+    <Box className="layout" sx={{ display: "flex", flexWrap: "wrap" }}>
       <Header />
       <Sidebar />
       <MainWrapper>
